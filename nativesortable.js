@@ -339,5 +339,31 @@
             }
         });
 
+        return {
+          $destroyEvent : function () {
+            [].forEach.call(element.childNodes, function(el) {
+                if (el.nodeType === 1) {
+                    el.removeAttribute("draggable", "true");
+                }
+            });
+            if (supportsDragAndDrop) {
+                element.removeEventListener('dragstart', handleDragStart, false);
+                element.removeEventListener('dragenter', handleDragEnter, false);
+                element.removeEventListener('dragleave', handleDragLeave, false);
+                element.removeEventListener('drop', handleDrop, false);
+                element.removeEventListener('dragover', handleDragOver, false);
+                element.removeEventListener('dragend', handleDragEnd, false);
+                console.log('lo hace??');
+            }else {
+                if (supportsTouch) {
+                    element.removeEventListener('touchstart', handleDragStart, false);
+                }
+                else {
+                    element.removeEventListener('mousedown', handleDragStart, false);
+                }
+            }
+          }
+        }
+
     };
 });
